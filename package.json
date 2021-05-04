@@ -5,14 +5,23 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HunterWilkins/skilltree.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HunterWilkins/skilltree/issues"
+  },
+  "homepage": "https://github.com/HunterWilkins/skilltree#readme",
   "dependencies": {
     "express": "^4.17.1",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
     "sequelize": "^6.6.2"
   }
 }
