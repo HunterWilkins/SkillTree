@@ -5,29 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillTree</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
     <h1>SkillTree</h1>
 
-    <form id = "skill-info">
+    <section id = "skill-info">
         <input type="text" name = "name" placeholder = "Skill Name">
-        <p>Current Skill Specifications</p>
-        <section id = "skill-specs">
+        <input type="text" name = "type" placeholder = "Skill Type">
+        <input type="number" name = "level" min = "0" placeholder = "Skill Level">
+        <div class="row">
+            <div class="column">
+                <p>Current Skill Specifications</p>
+                <section id = "skill-specs">
+        
+                </section>
+                <button data-type = "skill" class = "add-spec">Add Spec</button>
+            </div>
+           
+            <div class="column">
+                <p>Goal Specifications</p>
+                <section id = "goal-specs">
+        
+                </section>
+                <button data-type = "goal" class = "add-spec">Add Spec</button>
+                <br>
+            </div>    
+        </div>
+        <button id = "submit-skill">Submit Skill!</button>
+    </section>
 
-            <button class = "add-spec">Add Spec</button>
-        </section>
-        <p>Goal Specifications</p>
-        <section id = "goal-specs">
+    <main id = "skills">
+        <!-- Where the skills will be dynamically placed -->
 
-            <button class = "add-spec">Add Spec</button>
-        </section>
-    </form>
+    </main>
 
-    <form id="specs" style = "display:none;">
-        <input type="text" name = "spec-name" placeholder = "Spec Name (ex: weight)">
-        <input type="text" name = "spec-value" placeholder = "Spec Value (ex: 20)">
-        <button id = "submit-spec">Submit</button>
-    </form>
+   
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="./assets/js/logic.js"></script>
