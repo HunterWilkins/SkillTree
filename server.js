@@ -15,7 +15,11 @@ app.get("/", (req, res) => {
 
 app.get("/api/skills", async (req, res) => {
     let skills = await db.Skill.findAll({
-        attributes: ["name", "type", "level", "current", "goal"]
+        attributes: ["name", "level", "current", "goal"],
+        include: [{
+            model: db.Category,
+            attributes: ["title"]
+        }]
     });
 
     skills.forEach(item => {
@@ -25,10 +29,21 @@ app.get("/api/skills", async (req, res) => {
     res.json(skills);
 });
 
+app.get("/api/categories", async (req, res) => {
+    let categories = await db.Category.findAll({
+        attributes: ["id", "title"],
+        order: [
+            ["title", "ASC"]
+        ]
+    });
+
+    res.json(categories);
+})
+
 app.post("/api/skill", async (req, res) => {
     let newSkill = await db.Skill.create(req.body);
     res.json(newSkill);
-})
+});
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {

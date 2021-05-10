@@ -11,13 +11,6 @@ Skill.init({
             len: [1,100]
         }
     },
-    type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            len: [1,100]
-        }
-    },
     level: {
         type: DataTypes.INTEGER,
         allowNull: false

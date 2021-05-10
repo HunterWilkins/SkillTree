@@ -18,15 +18,38 @@ class Skill {
     }
 };
 
+async function grabCategories() {
+    const categories = await fetch("/api/categories").then(response => response.json());
+    categories.forEach(item => {
+        $("select[name = type]").append(
+            `
+            <option value = ${item.id}>${item.title}</option>
+            `
+        );
+    });
+};
+
+grabCategories();
+
 async function grabSkills() {
     const skills = await fetch("/api/skills").then(response => response.json());
+    console.log(skills);
     skills.forEach(item => {
         appendSkill(item);
     });
 };
 
-async function postSkill() {
-    
+async function postSkill(body) {
+    console.log(body);
+    const newSkill = await fetch("/api/skill", {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(body)
+    }).then(response => console.log(response.json())).catch(err => console.log(err));
+
+    console.log(newSkill);
 }
 
 grabSkills();
@@ -70,15 +93,35 @@ function addSpec(event) {
 };
 
 function createSkill() {
-    const NewSkill = new Skill($("input[name=name]").val(), $("input[name=type]").val(), Math.round($("input[name=level]").val()), skillSpecs, goalSpecs);
+    const NewSkill = new Skill(
+        $("input[name=name]").val(), 
+        $("input[name=type]").val(), 
+        Math.round($("input[name=level]").val()), 
+        JSON.stringify(skillSpecs), 
+        JSON.stringify(goalSpecs)
+    );
+
+    const skillObject = {
+        name: NewSkill.name,
+        level: NewSkill.level,
+        current: NewSkill.current,
+        goal: NewSkill.goal
+    }
+    
     console.log(NewSkill);
-    appendSkill(NewSkill);
+    postSkill(skillObject);
+    appendSkill({
+        ...NewSkill,
+        current: skillSpecs,
+        goal: goalSpecs
+    });
 };
 
 function appendSkill(Skill) {
     const parentDiv = $("<div class = 'skill'>");
     const levelElement = $("<p class = 'level'>").text(Skill.level);
     const nameElement = $("<h2 class = 'name'>").text(Skill.name);
+    const typeElement = $("<h3 class = 'type'>").text(Skill.Category.title);
     const currentLabel = $("<p>").text("Current Skill Specs");
     const currentDiv = $("<ul class = 'current'>");
     const goalLabel = $("<p>").text("Goal");
@@ -95,7 +138,7 @@ function appendSkill(Skill) {
         goalDiv.append(goalElement);
     }
 
-    parentDiv.append(nameElement, levelElement, currentLabel, currentDiv, goalLabel, goalDiv);
+    parentDiv.append(typeElement, nameElement, levelElement, currentLabel, currentDiv, goalLabel, goalDiv);
 
     $("#skills").append(parentDiv);
 }
