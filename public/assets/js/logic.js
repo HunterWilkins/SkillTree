@@ -50,7 +50,7 @@ async function postSkill(body) {
     }).then(response => console.log(response.json())).catch(err => console.log(err));
 
     console.log(newSkill);
-}
+};
 
 grabSkills();
 
@@ -118,29 +118,69 @@ function createSkill() {
 };
 
 function appendSkill(Skill) {
-    const parentDiv = $("<div class = 'skill'>");
-    const levelElement = $("<p class = 'level'>").text(Skill.level);
-    const nameElement = $("<h2 class = 'name'>").text(Skill.name);
-    const typeElement = $("<h3 class = 'type'>").text(Skill.Category.title);
-    const currentLabel = $("<p>").text("Current Skill Specs");
-    const currentDiv = $("<ul class = 'current'>");
-    const goalLabel = $("<p>").text("Goal");
+    const currentSpecs = (() => {
+        var result = ``;
+        for(var x in Skill.current) {
+            result += `<li>${x} : ${Skill.current[x]}</li>`
+        }
+        return result;
+    })();
 
-    for (var x in Skill.current) {
-        let skillElement = $("<li>").text(`${x} : ${Skill.current[x]}`);
-        currentDiv.append(skillElement); 
-    };
+    const goalSpecs = (() => {
+        var result = ``;
+        for(var x in Skill.goal) {
+            result += `<li>${x} : ${Skill.goal[x]}</li>`
+        }
+        return result;
+    })();
 
-    const goalDiv = $("<ul class = 'goal'>");
+    const skillTemplate = 
+    `
+    <div class = "skill">
+        <span class = 'skill-head'>
+            <h2 class = "name">${Skill.name}</h2>
+            <p class = "level">lvl ${Skill.level}</p>
+        </span>
+        <hr>
+        <span class = "row">
+            <div class = "column">
+                <h3>Current Skill Specs</h3>
+                <ul class = "current">
+                    ${currentSpecs}
+                </ul>
+            </div>
+            <div class = "column">
+                <h3>Goal</h3>
+                <ul class = "goal">
+                    ${goalSpecs}
+                </ul>
+            </div>
+        </span>
+    </div>
+    `
+    // const parentDiv = $("<div class = 'skill'>");
+    // const levelElement = $("<p class = 'level'>").text(Skill.level);
+    // const nameElement = $("<h2 class = 'name'>").text(Skill.name);
+    // // const typeElement = $("<h3 class = 'type'>").text(Skill.Category.title);
+    // const currentLabel = $("<p>").text("Current Skill Specs");
+    // const currentDiv = $("<ul class = 'current'>");
+    // const goalLabel = $("<p>").text("Goal");
 
-    for (var x in Skill.goal) {
-        let goalElement = $("<li>").text(`${x} : ${Skill.goal[x]}`);
-        goalDiv.append(goalElement);
-    }
+    // for (var x in Skill.current) {
+    //     let skillElement = $("<li>").text(`${x} : ${Skill.current[x]}`);
+    //     currentDiv.append(skillElement); 
+    // };
 
-    parentDiv.append(typeElement, nameElement, levelElement, currentLabel, currentDiv, goalLabel, goalDiv);
+    // const goalDiv = $("<ul class = 'goal'>");
 
-    $("#skills").append(parentDiv);
+    // for (var x in Skill.goal) {
+    //     let goalElement = $("<li>").text(`${x} : ${Skill.goal[x]}`);
+    //     goalDiv.append(goalElement);
+    // }
+
+    // parentDiv.append(nameElement, levelElement, currentLabel, currentDiv, goalLabel, goalDiv);
+
+    $("#skills").append(skillTemplate);
 }
 
 $(".add-spec").on("click", toggleSpecInput);

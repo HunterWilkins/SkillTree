@@ -2,36 +2,170 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+:root {
+    --teal: rgb(164, 201, 196);
+    --green: rgb(70, 158, 78);
+
 }
 
+body {
+    margin: 0;
+    padding: 10px;
+    background: var(--teal);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+button, a {
+    cursor: pointer;
+
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+hr {
+    border: none;
+    border-bottom: solid 2px black;
+    width: 90%;
+}
+
+header {
+    padding: 15px;
+    background: var(--green);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+main {
+    flex: 1;
+
+    background: rgb(45,45,45);
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+aside {
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+   
+    background: pink;
+}
+
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav > a {
+    flex: 1;
+    text-align:center;
+}
+
+/* Skill Form */
+
+#add-skill {
+    background: var(--green);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 500px;
+}
+
+#add-skill > *:not(input, button) {
+    color: white;
+}
+
+#current, #goal {
+    padding: 15px;   
+}
+
+input[name = key], input[name = value] {
+    padding: 4px;
+}
+
+input[name = key] {
+    margin-right: 5px;
+}
+
+#skill-form-title {
+    padding: 5px;
+    text-align:center;
+}
+
+.specs {
+    padding: 10px;
+}
+
+/*================*/
+
+#skills {
+    display: flex;
+   
+    flex-direction: column;
+    flex: 1;
+    background: orange;
+}
+
+.skill {
+
+    align-items: center;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+
+.skill-head {
+    display: flex;
+    align-items: center;
+}
+
+.skill-head h2 {
+    margin-right: 15px;
+}
+
+.skill h3 {
+    border-bottom: 2px solid black;
+    margin-bottom: 4px;
+}
+
+.skill .row > .column {
+    align-items: center;
+}
+
+/* Utility Classes */
+.column {
+    display: flex;
+    flex-direction: column;
+}
 .row {
     display: flex;
 }
 
-.column {
-    display: flex;
-    flex: 1;
-    flex-direction: column; 
-}
-
-#skill-info {
-    display: flex;
-    background: pink;
-    padding: 10px;
-    flex-direction: column;
-}
-
-#skills {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.skill {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.row > * {
     flex: 1;
 }
+
+/*===================*/
