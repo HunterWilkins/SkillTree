@@ -29,13 +29,24 @@ async function grabCategories() {
     });
 };
 
+function convertDate(date) {
+    let normalizeDate = date.substring(0, 10);
+    console.log(normalizeDate);
+    let convertedDate = moment(normalizeDate).format("MMMM DD, YYYY");
+    // let rearrangedDate = [normalizeDate[1], normalizeDate[2], normalizeDate[0]].join("/");
+    return convertedDate;
+}
+
 grabCategories();
 
 async function grabSkills() {
     const skills = await fetch("/api/skills").then(response => response.json());
     console.log(skills);
     skills.forEach(item => {
-        appendSkill(item);
+        appendSkill({
+            ...item,
+            createdAt: convertDate(item.createdAt)
+        });
     });
 };
 
@@ -134,6 +145,7 @@ function appendSkill(Skill) {
         return result;
     })();
 
+    const dateDifference = moment().diff(Skill.createdAt, "days");
     const skillTemplate = 
     `
     <div class = "skill">
@@ -144,11 +156,14 @@ function appendSkill(Skill) {
         <hr>
         <span class = "row">
             <div class = "column">
-                <h3>Current Skill Specs</h3>
+                <h3>${Skill.createdAt} (${dateDifference} days ago)</h3>
                 <ul class = "current">
                     ${currentSpecs}
                 </ul>
             </div>
+            <figure class = "column">
+                <img class = "arrow" src = "./assets/images/double-arrows.png" alt = "arrows">
+            </figure>
             <div class = "column">
                 <h3>Goal</h3>
                 <ul class = "goal">

@@ -3,7 +3,7 @@ const db = require("../models");
 
 router.get("/skills", async (req, res) => {
     let skills = await db.Skill.findAll({
-        attributes: ["name", "level", "current", "goal"],
+        attributes: ["name", "level", "current", "goal", "createdAt"],
         include: [{
             model: db.Category,
             attributes: ["title"]

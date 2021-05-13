@@ -155,6 +155,10 @@ input[name = key] {
     align-items: center;
 }
 
+.arrow {
+    cursor: pointer;
+    width: 3em;
+}
 /* Utility Classes */
 .column {
     display: flex;
@@ -162,10 +166,14 @@ input[name = key] {
 }
 .row {
     display: flex;
+    align-items: center;
 }
 
 .row > * {
     flex: 1;
 }
 
+.underline {
+    text-decoration: underline;
+}
 /*===================*/
