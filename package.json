@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "nodemon server.js",
-    "seed": "node seeds/index.js"
+    "start:dev": "concurrently \"nodemon --ignore 'client'/*'\" \"npm run client\"",
+    "seed": "node seeds/index.js",
+    "install": "cd client && npm install",
+    "client": "cd client && npm run start",
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,9 @@
   },
   "homepage": "https://github.com/HunterWilkins/skilltree#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^6.2.0",
     "dotenv": "^9.0.1",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
