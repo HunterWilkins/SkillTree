@@ -31,6 +31,7 @@ function App() {
           query: `
             query {
               skills {
+                id,
                 name
               }
               users {
@@ -44,13 +45,14 @@ function App() {
       setPosts(data.skills);
     }).catch(err => console.log(err));
   }
+
   function renderSkills() {
       return( 
       <div id = "skills">
         {
         posts.map(item => {
           return (
-            <div className = "skill">
+            <div key = {"skill-" + item.id} className = "skill">
               <h2>{item.name}</h2>
             </div>
           )
