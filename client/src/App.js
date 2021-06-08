@@ -42,6 +42,7 @@ function App() {
         })
     }).then(response => response.json())
     .then(({data}) => {
+      console.log(response, data);
       setPosts(data.skills);
     }).catch(err => console.log(err));
   }
