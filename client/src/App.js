@@ -7,7 +7,11 @@ import {
   createHttpLink
 } from "@apollo/client";
 
+import SkillList from "./components/SkillList";
+import EditSkill from "./components/EditSkill";
+
 import {useState, useEffect} from "react";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 const httpLink = createHttpLink({uri: "/graphql"});
 const client = new ApolloClient({
@@ -16,56 +20,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    grabSkills();
-  }, []);
-
-  function grabSkills() {
-    fetch("/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type" : "application/json",
-      },
-      body: JSON.stringify({
-          query: `
-            query {
-              skills {
-                id,
-                name
-              }
-              users {
-                username
-              }
-            }
-          `
-        })
-    }).then(response => {
-      console.log(response);
-      return response.json();
-    })
-    .then(({data}) => {
-      console.log(data);
-      setPosts(data.skills);
-    }).catch(err => console.log(err));
-  }
-
-  function renderSkills() {
-      return( 
-      <div id = "skills">
-        {
-        posts.map(item => {
-          return (
-            <div key = {"skill-" + item.id} className = "skill">
-              <h2>{item.name}</h2>
-            </div>
-          )
-        })
-      }
-      </div>
-      )
-  }
-
   return (
     <ApolloProvider client = {client}>
 
@@ -76,11 +30,16 @@ function App() {
           <h3>Smasball</h3>
           <h3>Pig Pig Dog Pig Man Pig Dog</h3>
         </div>
-        {
-          
-          renderSkills()
-         
-        }
+        <Router>
+          <Switch>
+            <Route exact path = "/skill/:id">
+              <EditSkill />
+            </Route>
+            <Route exact path = "*">
+              <SkillList />
+            </Route>
+          </Switch>
+        </Router>
       </main>
       <footer>
         Hunter Wilkins

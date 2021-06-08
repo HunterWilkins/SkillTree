@@ -32,13 +32,22 @@ const server = new ApolloServer({
         type Query {
             skills: [Skill],
             users: [User],
-            categories: [Category]
+            categories: [Category],
+            skill(id: ID):Skill
         }
     `,
     resolvers: {
         Query: {
             skills: async () => {
                 return db.Skill.findAll();
+            },
+            skill: async(parent, {id}) => {
+                console.log(id)
+                return db.Skill.findOne({
+                    where: {
+                        id: id
+                    }
+                })
             },
             users: async () => {
                 return db.User.findAll();
