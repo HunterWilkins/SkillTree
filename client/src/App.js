@@ -40,9 +40,12 @@ function App() {
             }
           `
         })
-    }).then(response => response.json())
+    }).then(response => {
+      console.log(response);
+      response.json()
+    })
     .then(({data}) => {
-      console.log(response, data);
+      console.log(data);
       setPosts(data.skills);
     }).catch(err => console.log(err));
   }
